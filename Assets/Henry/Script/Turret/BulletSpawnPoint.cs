@@ -5,11 +5,13 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public GameObject projectile;
+
     float time = 0.0f;
-    float ShotTimer = .25f;
+    float ShotTimer = .1f;
     public bool ecoMode;
     EcoMode refEcoModeScript;
     MouseLookAtTest refMouseLookAtTest;
+
     void Start()
     {
         refMouseLookAtTest = GetComponentInParent<MouseLookAtTest>();
@@ -33,7 +35,7 @@ public class BulletScript : MonoBehaviour
         {
             time = 0;
             transform.localEulerAngles = new Vector3(0, 0, Random.Range(-15, 15));
-            GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+            GameObject bullet = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
             bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 2000.0f);
         }
 
