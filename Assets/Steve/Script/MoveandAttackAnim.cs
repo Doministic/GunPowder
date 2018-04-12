@@ -54,7 +54,7 @@ void Movement()
     }
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             attack = true;
             Debug.Log("True");
