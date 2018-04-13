@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpdateUIBehaviour : MonoBehaviour {
+public class UpdateUIBehaviour : MonoBehaviour 
+{
 
 	[SerializeField]
 	private Text timerLabel;

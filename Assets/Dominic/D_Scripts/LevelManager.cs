@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-     public static bool isPaused = false;
+    public static bool isPaused = false;
     public static bool isRealTimePaused = false;
 
     private GameObject pauseMenuUI;
@@ -18,10 +18,10 @@ public class LevelManager : MonoBehaviour
         float autoLoadNextLevel = 3.5f;
         pauseMenuUI = GameObject.Find("PauseMenu");
         realTimePauseUI = GameObject.Find("RealTimePause");
-        
+        Time.timeScale = 1;
+
         if (SceneManager.GetActiveScene().buildIndex > 2)
         {
-            
             if (pauseMenuUI != null)
             {
                 pauseMenuUI.SetActive(false);
