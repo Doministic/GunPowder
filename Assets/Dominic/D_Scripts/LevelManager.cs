@@ -5,29 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public static bool isPaused = false;
+     public static bool isPaused = false;
     public static bool isRealTimePaused = false;
 
     private GameObject pauseMenuUI;
-    private float timeDelay = 5.0f;
+    private GameObject realTimePauseUI;
+    private float timeDelay;
 
 
     void Start()
     {
         float autoLoadNextLevel = 3.5f;
         pauseMenuUI = GameObject.Find("PauseMenu");
-
+        realTimePauseUI = GameObject.Find("RealTimePause");
+        
         if (SceneManager.GetActiveScene().buildIndex > 2)
         {
+            
             if (pauseMenuUI != null)
             {
                 pauseMenuUI.SetActive(false);
+            }
+
+            if(realTimePauseUI != null){
+                realTimePauseUI.SetActive(false);
             }
         }
         else
         {
             Invoke("LoadNextLevel", autoLoadNextLevel);
             pauseMenuUI = null;
+            realTimePauseUI = null;
         }
     }
 
@@ -48,19 +56,14 @@ public class LevelManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-           RealTimePause();
+            RealTimePause();
         }
         // Debug.Log(timeDelay);
         if (isRealTimePaused && timeDelay <= 0)
-            {
-                Debug.Log("Resume");
-                Resume();
-            }
-    }
-
-    void FixedUpdate()
-    {
-       
+        {
+            Resume();
+            realTimePauseUI.SetActive(false);
+        }
     }
 
     public void LoadLevel(string levelName)
@@ -89,10 +92,13 @@ public class LevelManager : MonoBehaviour
         timeDelay = 5.0f;
     }
 
-    public void RealTimePause(){
+    public void RealTimePause()
+    {
+        realTimePauseUI.SetActive(true);
         Time.timeScale = 0;
-        isRealTimePaused = true;
         timeDelay = 5.0f;
+        isRealTimePaused = true;
+        
     }
 
     public void QuitGame()

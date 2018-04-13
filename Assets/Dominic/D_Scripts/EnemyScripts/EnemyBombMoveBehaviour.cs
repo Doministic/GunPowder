@@ -6,16 +6,10 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
 {
     public float movementSpeed = 5.0f;
     public float stoppingDistance = 5.0f;
-    public AnimationClip animationClip;
 
-    private Animator animator;
-    private AnimatorOverrideController overrideController;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
-        animator.runtimeAnimatorController = overrideController;
         StartCoroutine("MoveTo");
     }
 
@@ -53,7 +47,13 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "Base")
         {
-            overrideController["Bomb"] = animationClip;
+            print("I should explode");
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }
