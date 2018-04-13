@@ -6,9 +6,7 @@ public class EnemyMoveBehaviour : MonoBehaviour
 {
     public AudioClip[] clips;
 
-    public Transform objectToMoveTo;
-    public float maxMovementSpeed = 7.5f;
-    public float minMovementSpeed = 3.5f;
+    public float movementSpeed = 5.0f;
     public float stoppingDistance = 5.0f;
     public float shootingDistance = 8.0f;
     public float timeTillDestroy = 5;
@@ -17,7 +15,6 @@ public class EnemyMoveBehaviour : MonoBehaviour
     // private Color colorChange;
     private SpriteRenderer spriteRender;
     private float blinkTime = 2;
-    private float step = 0.0f;
     private int health;
     private int maxHealth = 100;
     private int minHealth = 0;
@@ -25,28 +22,31 @@ public class EnemyMoveBehaviour : MonoBehaviour
     void Start()
     {
         health = maxHealth;
-        step = Random.Range(minMovementSpeed, maxMovementSpeed);
-        StartCoroutine(MoveTo(step));
+        StartCoroutine(MoveTo());
         spriteRender = gameObject.GetComponent<SpriteRenderer>();
-        if (transform.position.x >= 0)
-            {
-                //angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.y) * Mathf.Rad2Deg;
-                //q = Quaternion.AngleAxis(angle, Vector3.forward * 0.25f);
-                transform.rotation = new Quaternion(0,0,-0.4f,0.9f);
-            }
-            else
-            {
-                //angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-                //q = Quaternion.AngleAxis(angle, Vector3.forward  * -1f);
-                transform.rotation = new Quaternion(0,0,0.4f,0.9f);
-            }
+        if (transform.position.x > 0)
+        {
+            //angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.y) * Mathf.Rad2Deg;
+            //q = Quaternion.AngleAxis(angle, Vector3.forward * 0.25f);
+            transform.rotation = new Quaternion(0, 0, -0.4f, 0.9f);
+        }
+        else if (transform.position.x < 0)
+        {
+            //angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+            //q = Quaternion.AngleAxis(angle, Vector3.forward  * -1f);
+            transform.rotation = new Quaternion(0, 0, 0.4f, 0.9f);
+        }
+        else
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0.9f);
+        }
     }
 
-    IEnumerator MoveTo(float step)
+    IEnumerator MoveTo()
     {
         while (true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, ClosestEnemy().transform.position, step * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, ClosestEnemy().transform.position, movementSpeed * Time.deltaTime);
             //transform.LookAt(transform.position + new Vector3(0,0,0.5f), ClosestEnemy().transform.position);
             //Vector3 vectorToTarget = ClosestEnemy().transform.position - transform.position;
             //float angle;
@@ -121,8 +121,8 @@ public class EnemyMoveBehaviour : MonoBehaviour
             }
         }
         return closestEnemy;
-
     }
+    
     void Die()
     {
         int clipPick = Random.Range(0, clips.Length);
