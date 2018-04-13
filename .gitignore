@@ -38,3 +38,7 @@ sysinfo.txt
 *.unitypackage
 Assets/ProCore
 ProCore.meta
+Assets/Demigiant
+Assets/Resources
+Demigiant.meta
+Resources.meta
