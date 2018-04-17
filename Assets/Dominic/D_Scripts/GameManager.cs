@@ -12,6 +12,7 @@ public class GameManager : BaseSingletonBehaviour<GameManager>
     void Start()
     {
         print("I Reset");
+        
         nightTimeCount = 0;
         //timeRemaining = maxTime;
         if (TimeRemaining < maxTime)
