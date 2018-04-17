@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    public Image realTimePauseImage;
     public static bool isPaused = false;
     public static bool isRealTimePaused = false;
 
     private GameObject pauseMenuUI;
     private GameObject realTimePauseUI;
-    private float timeDelay;
+    private float timeDelay = 5;
+    private float realTimeWaitTime = 10.0f;
 
 
     void Start()
@@ -27,7 +30,8 @@ public class LevelManager : MonoBehaviour
                 pauseMenuUI.SetActive(false);
             }
 
-            if(realTimePauseUI != null){
+            if (realTimePauseUI != null)
+            {
                 realTimePauseUI.SetActive(false);
             }
         }
@@ -54,15 +58,23 @@ public class LevelManager : MonoBehaviour
                 PauseGame();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) && realTimePauseImage.fillAmount == 1)
         {
             RealTimePause();
         }
-        // Debug.Log(timeDelay);
+
         if (isRealTimePaused && timeDelay <= 0)
         {
             Resume();
             realTimePauseUI.SetActive(false);
+        }
+
+        if (isRealTimePaused)
+        {
+            realTimePauseImage.fillAmount -= 3.0f / realTimeWaitTime * Time.unscaledDeltaTime;
+        }
+        else if (!isRealTimePaused && realTimePauseImage.fillAmount >= 0){
+            realTimePauseImage.fillAmount += 0.5f / realTimeWaitTime * Time.unscaledDeltaTime;
         }
     }
 
@@ -98,7 +110,6 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0;
         timeDelay = 5.0f;
         isRealTimePaused = true;
-        
     }
 
     public void QuitGame()

@@ -10,7 +10,7 @@ public class HomeBaseHealthBehaviour : MonoBehaviour {
 	public Slider healthBarSlider;
 
     private int minHealth = 0;
-    private int maxHealth = 100;
+    private int maxHealth = 500;
 
     void Start()
     {
@@ -35,7 +35,10 @@ public class HomeBaseHealthBehaviour : MonoBehaviour {
     {
         if (other.gameObject.tag == "regEnemyBullet")
         {
-            health -= 10;
+            health -= 3;
+        }
+        if(other.gameObject.tag == "Bomb"){
+            health -= 17;
         }
     }
 
