@@ -35,10 +35,10 @@ public class HomeBaseHealthBehaviour : MonoBehaviour {
     {
         if (other.gameObject.tag == "regEnemyBullet")
         {
-            health -= 10;
+            health -= 3;
         }
         if(other.gameObject.tag == "Bomb"){
-            health -= 25;
+            health -= 17;
         }
     }
 
