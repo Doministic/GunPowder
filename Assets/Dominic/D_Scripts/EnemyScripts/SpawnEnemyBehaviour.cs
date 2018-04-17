@@ -2,64 +2,96 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnEnemyBehaviour : MonoBehaviour {
+public class SpawnEnemyBehaviour : MonoBehaviour
+{
+    public GameObject flyingEnemySpawn;
+    public GameObject bombEnemySpawn;
+    // public GameObject golemEnemySpawn;
+    // public GameObject protectorEnemySpawn;
+    // public GameObject runtEnemySpawn;
+    public List<GameObject> enemySpawnLocations = new List<GameObject>();
+    public float startWait;
+    public float spawnWait;
+    public float waveWait;
+    public int minTotalEnemyCount = 40;
+    public int maxTotalEnemyCount = 50;
 
-
-	public GameObject enemyToSpawn;
-	public List<GameObject> enemySpawnLocations = new List<GameObject>();
-	public float startWait;
-	public float spawnWait;
-	public float waveWait;
-	public int minEnemyCount = 10;
-	public int maxEnemyCount = 20;
-
-	private int index;
 	private int enemyCount;
-	private int waveCount;
+    private int index;
+    private int totalEnemyCount;
+    private int waveCount;
+	private int totalWaveCount;
 
 
-	IEnumerator SpawnEnemyCoroutine(){	
-		
-		enemyCount = Random.Range(minEnemyCount, maxEnemyCount);
-		yield return new WaitForSeconds(startWait);
-		while (true){
-			for(int i = 0; i <= enemyCount; i++){
-				SpawnEnemy();
-				yield return new WaitForSeconds(spawnWait);
-			}
-			yield return new WaitForSeconds(waveWait);
-		}
+    IEnumerator SpawnEnemyCoroutine()
+    {
+        yield return new WaitForSeconds(startWait);
+        while (true)
+        {
+            for (int i = 0; i <= totalEnemyCount; i++)
+            {
+                if (totalEnemyCount >= 0)
+                {
+                    SpawnFlyingEnemy();
+                }
+                if (totalEnemyCount >= 10)
+                {
+                    SpawnBombEnemy();
+                }
+                yield return new WaitForSeconds(spawnWait);
+            }
+            yield return new WaitForSeconds(waveWait);
+			//WaveChange();
+        }
+    }
 
+    void Start()
+    {
+        totalEnemyCount = Random.Range(minTotalEnemyCount, maxTotalEnemyCount);
+        StartCoroutine(SpawnEnemyCoroutine());
+    }
+
+    void Update()
+    {
+        index = Random.Range(0, enemySpawnLocations.Count - 1);
+    }
+
+	void WaveChange(){
+		waveCount++;
+		waveWait += 5;
+		minTotalEnemyCount += 10;
+		maxTotalEnemyCount += 20;
+		spawnWait -= 1.5f;
 	}
-	void Start()
-	{	
-		StartCoroutine(SpawnEnemyCoroutine());	
-	}
-	void Update()
-	{
-		index = Random.Range(0, enemySpawnLocations.Count);
-	}
-	void SpawnEnemy(){
-		if (index == 0){
-			float minX = -10.0f;
-			float maxX = 10.0f;
-			float randomX = Random.Range(minX, maxX);
-			Vector2 spawnPoint0 = new Vector3(randomX, enemySpawnLocations[0].transform.position.y, -2);
-			Instantiate(enemyToSpawn, spawnPoint0, Quaternion.identity);
-		}
-		else if (index == 1){
-			float minY = 0.0f;
-			float maxY = 10.0f;
-			float randomY = Random.Range(minY, maxY);
-			Vector2 spawnPoint1 = new Vector3(enemySpawnLocations[1].transform.position.x, randomY, -2);
-			Instantiate(enemyToSpawn, spawnPoint1, Quaternion.identity);				
-		}
-		else if (index == 2){
-			float minY = 0.0f;
-			float maxY = 10.0f;
-			float randomY = Random.Range(minY, maxY);
-			Vector2 spawnPoint2 = new Vector3(enemySpawnLocations[2].transform.position.x, randomY, -2);
-			Instantiate(enemyToSpawn, spawnPoint2, Quaternion.identity);
-		}
-	}		
+
+    void SpawnFlyingEnemy()
+    {
+        if (index == 0)
+        {
+            float minX = -10.0f;
+            float maxX = 10.0f;
+            float randomX = Random.Range(minX, maxX);
+            Vector2 spawnPoint0 = new Vector3(randomX, enemySpawnLocations[0].transform.position.y, -2);
+            Instantiate(flyingEnemySpawn, spawnPoint0, Quaternion.identity);
+        }
+        enemyCount++;
+    }
+
+    void SpawnBombEnemy()
+    {
+        if (index == 1)
+        {
+            Instantiate(bombEnemySpawn, enemySpawnLocations[3].transform.position, Quaternion.identity);
+        }
+        else if (index == 2)
+        {
+            Instantiate(bombEnemySpawn, enemySpawnLocations[4].transform.position, Quaternion.identity);
+        }
+        enemyCount++;
+    }
+
+    void SpawnGolem()
+    {
+        enemyCount++;
+    }
 }
