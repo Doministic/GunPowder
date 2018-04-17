@@ -16,7 +16,6 @@ public class ResourceManager : BaseSingletonBehaviour<ResourceManager>
                 _instance = GameObject.FindObjectOfType<ResourceManager>();
 
                 //Tell unity not to destroy this object when loading a new scene!
-                DontDestroyOnLoad(_instance.gameObject);
             }
 
             return _instance;
