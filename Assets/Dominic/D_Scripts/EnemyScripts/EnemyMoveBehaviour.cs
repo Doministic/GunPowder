@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMoveBehaviour : MonoBehaviour
 {
     public AudioClip[] clips;
-
+    ResourceManager refResourceManager;
     public float movementSpeed = 5.0f;
     public float stoppingDistance = 5.0f;
     public float shootingDistance = 8.0f;
@@ -21,6 +21,7 @@ public class EnemyMoveBehaviour : MonoBehaviour
 
     void Start()
     {
+        refResourceManager = FindObjectOfType<ResourceManager>();
         health = maxHealth;
         StartCoroutine(MoveTo());
         spriteRender = gameObject.GetComponent<SpriteRenderer>();
@@ -130,6 +131,8 @@ public class EnemyMoveBehaviour : MonoBehaviour
         GetComponent<AudioSource>().Play();
         //gameObject.GetComponent<Collider2D>.enabled = !enabled;
         transform.position = new Vector2(1000, 1000);
+        refResourceManager.GrainManager(50);
+        refResourceManager.ScrapManager(50);
         Destroy(gameObject, .5f);
     }
 }
