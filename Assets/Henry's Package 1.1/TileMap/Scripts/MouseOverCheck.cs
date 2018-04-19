@@ -37,7 +37,7 @@ public class MouseOverCheck : MonoBehaviour
             CheckIfBaseIsNearBy();
             if (isTileTaken == false && homeBaseIsNear == true)
             {
-                Instantiate(basicBuilding, basicBuildingLocation);
+                Instantiate(basicBuilding,basicBuildingLocation.position,Quaternion.identity);
                 print("I Spawned Something");
                 GetComponent<Renderer>().material = noBuildMat;
             }

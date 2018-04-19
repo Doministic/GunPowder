@@ -16,7 +16,7 @@ public class AutoResources : MonoBehaviour
     // Update is called once per frame
     void upResources()
     {
-        autoResources.GrainManager(1);
-        autoResources.ScrapManager(1);
+        autoResources.GrainManager(3);
+        autoResources.ScrapManager(0);
     }
 }

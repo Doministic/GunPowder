@@ -13,7 +13,7 @@ public class Turret : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this.gameObject);
         currentHealth = turret.turretHealth;
         Instantiate(turret.TurretPrefab, transform.position, Quaternion.identity).transform.parent = gameObject.transform;
     }
