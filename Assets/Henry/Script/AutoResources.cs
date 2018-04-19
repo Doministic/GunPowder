@@ -6,17 +6,17 @@ public class AutoResources : MonoBehaviour
 {
 
     // Use this for initialization
-    ResourceManager auRes;
+    ResourceManager autoResources;
     void Start()
     {
-        auRes = Object.FindObjectOfType<ResourceManager>();
-		InvokeRepeating("upResources",1,1);
+        autoResources = Object.FindObjectOfType<ResourceManager>();
+		InvokeRepeating("upResources",1,.5f);
     }
 
     // Update is called once per frame
     void upResources()
     {
-        auRes.GrainManager(2);
-        auRes.ScrapManager(2);
+        autoResources.GrainManager(1);
+        autoResources.ScrapManager(1);
     }
 }
