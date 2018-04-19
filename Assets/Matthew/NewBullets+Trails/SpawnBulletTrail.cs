@@ -18,6 +18,7 @@ public class SpawnBulletTrail : MonoBehaviour {
 	}
 
     void SpawnToot() {
-        Instantiate(toot, new Vector2 (transform.position.x, transform.position.y - .01f),Quaternion.identity);
+        //Instantiate(toot, new Vector2 (transform.position.x, transform.position.y - .01f), Quaternion.identity);
+        GameObject bullet = Instantiate(toot, transform.position, transform.rotation) as GameObject;
     }
 }
