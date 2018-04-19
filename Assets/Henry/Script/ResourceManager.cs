@@ -41,10 +41,10 @@ public class ResourceManager : BaseSingletonBehaviour<ResourceManager>
 
     public void GrainManager(int grainToChange)
     {
-        grain = grain + grainToChange;
+        grain += grainToChange;
     }
     public void ScrapManager(int scrapToChange)
     {
-        scrap = scrap = scrapToChange;
+        scrap += scrapToChange;
     }
 }
