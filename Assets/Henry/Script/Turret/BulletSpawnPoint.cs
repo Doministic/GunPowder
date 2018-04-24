@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class BulletSpawnPoint : MonoBehaviour
 {
     public GameObject projectile;
 
     float time = 0.0f;
-    float ShotTimer = .1f;
+    float ShotTimer = .5f;
     public bool ecoMode;
     EcoMode refEcoModeScript;
     MouseLookAtTest refMouseLookAtTest;
