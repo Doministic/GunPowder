@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
             RealTimePause();
         }
 
-        if (isRealTimePaused && timeDelay <= 0)
+        if (isRealTimePaused && realTimePauseImage.fillAmount <= 0)
         {
             Resume();
             realTimePauseUI.SetActive(false);
@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour
 
         if (isRealTimePaused)
         {
-            realTimePauseImage.fillAmount -= 3.0f / realTimeWaitTime * Time.unscaledDeltaTime;
+            realTimePauseImage.fillAmount -= 1.5f / realTimeWaitTime * Time.unscaledDeltaTime;
         }
         else if (!isRealTimePaused && realTimePauseImage.fillAmount >= 0){
             realTimePauseImage.fillAmount += 0.5f / realTimeWaitTime * Time.unscaledDeltaTime;
@@ -101,14 +101,14 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         isRealTimePaused = false;
-        timeDelay = 5.0f;
+        //timeDelay = 5.0f;
     }
 
     public void RealTimePause()
     {
         realTimePauseUI.SetActive(true);
         Time.timeScale = 0;
-        timeDelay = 5.0f;
+        //timeDelay =5;
         isRealTimePaused = true;
     }
 
