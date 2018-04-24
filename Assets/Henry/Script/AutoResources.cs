@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AutoResources : MonoBehaviour
 {
-
-    // Use this for initialization
+    public int grain;
+    public int scrap;
     ResourceManager autoResources;
     void Start()
     {
@@ -13,10 +13,9 @@ public class AutoResources : MonoBehaviour
 		InvokeRepeating("upResources",1,.5f);
     }
 
-    // Update is called once per frame
     void upResources()
     {
-        autoResources.GrainManager(1);
-        autoResources.ScrapManager(1);
+        autoResources.GrainManager(grain);
+        autoResources.ScrapManager(scrap);
     }
 }
