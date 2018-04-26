@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class SpawnEnemyBehaviour : MonoBehaviour
 {
-    public GameObject flyingEnemySpawn;
-    public GameObject bombEnemySpawn;
-    // public GameObject golemEnemySpawn;
+    public GameObject flyingEnemy;
+    public GameObject bombEnemy;
+    public GameObject golemEnemy;
     // public GameObject protectorEnemySpawn;
     // public GameObject runtEnemySpawn;
 
     public GameObject leftBombSpawn;
     public GameObject rightBombSpawn;
-    // public GameObject leftGolemSpawn;
-    // public GameObject rightGolemSpawn;
+    public GameObject leftGolemSpawn;
+    public GameObject rightGolemSpawn;
+    // public GameObject leftProtectorSpawn;
+    // public GameObject rightProtectorSpawn;
+    // public GameObject leftRuntSpawn;
+    // public GameObject rightRuntSpawn;
     public List<GameObject> enemySpawnLocations = new List<GameObject>();
-    public float startWait;
     public float spawnWait;
     public float waveWait;
     public int minTotalEnemyCount = 40;
     public int maxTotalEnemyCount = 50;
 
+    private float startWait = 1.5f;
     private int enemyCount;
     private int index;
     private int totalEnemyCount;
@@ -43,6 +47,10 @@ public class SpawnEnemyBehaviour : MonoBehaviour
                 {
                     SpawnBombEnemy();
                 }
+                if (enemyCount >= 20)
+                {
+                    SpawnGolemEnemy();
+                }
                 yield return new WaitForSeconds(spawnWait);
             }
             yield return new WaitForSeconds(waveWait);
@@ -59,12 +67,18 @@ public class SpawnEnemyBehaviour : MonoBehaviour
     void Update()
     {
         index = Random.Range(0, enemySpawnLocations.Count);
-		if (enemyCount > 9 && enemySpawnLocations.Count == 1)
+        if (enemyCount > 9 && enemySpawnLocations.Count == 1)
         {
             enemySpawnLocations.Add(rightBombSpawn);
             enemySpawnLocations.Add(leftBombSpawn);
         }
-		//Debug.Log("The enemy count is " + enemyCount);
+        if (enemyCount > 19 && enemySpawnLocations.Count == 3){
+            enemySpawnLocations.Remove(rightBombSpawn);
+            enemySpawnLocations.Remove(leftBombSpawn);
+            enemySpawnLocations.Add(rightGolemSpawn);
+            enemySpawnLocations.Add(leftGolemSpawn);
+        }
+        //Debug.Log("The enemy count is " + enemyCount);
     }
 
     void WaveChange()
@@ -84,9 +98,9 @@ public class SpawnEnemyBehaviour : MonoBehaviour
             float maxX = 10.0f;
             float randomX = Random.Range(minX, maxX);
             Vector2 spawnPoint0 = new Vector3(randomX, enemySpawnLocations[0].transform.position.y, -2);
-            Instantiate(flyingEnemySpawn, spawnPoint0, Quaternion.identity);
+            Instantiate(flyingEnemy, spawnPoint0, Quaternion.identity);
         }
-        
+
         enemyCount++;
     }
 
@@ -94,17 +108,30 @@ public class SpawnEnemyBehaviour : MonoBehaviour
     {
         if (index == 1)
         {
-            Instantiate(bombEnemySpawn, enemySpawnLocations[1].transform.position, Quaternion.identity);
+            Instantiate(bombEnemy, rightBombSpawn.transform.position, Quaternion.identity);
         }
         else if (index == 2)
         {
-            Instantiate(bombEnemySpawn, enemySpawnLocations[2].transform.position, Quaternion.identity);
+            Instantiate(bombEnemy, leftBombSpawn.transform.position, Quaternion.identity);
         }
         enemyCount++;
     }
 
-    void SpawnGolem()
+    void SpawnGolemEnemy()
     {
+        if (index == 1 || index == 3)
+        {
+            float transNew;
+            Instantiate(golemEnemy, rightGolemSpawn.transform.position, Quaternion.identity);
+            if(transform.position.x > 0){
+                transNew = transform.rotation.x * -1;
+                golemEnemy.transform.rotation = new Quaternion(0, 0.9f, 0, 0);
+            }
+        }
+        else if (index == 2 || index == 4)
+        {
+            Instantiate(golemEnemy, leftGolemSpawn.transform.position, Quaternion.identity);
+        }
         enemyCount++;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : BaseSingletonBehaviour<GameManager>
 {
     private float timeRemaining;
-    private float maxTime = 180;
+    private float maxTime = 182;
     private int nightTimeCount;
 
     void Start()

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnToot : MonoBehaviour {
-    public GameObject yaoo;
+    public class UnToot : MonoBehaviour {
+
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +12,7 @@ public class UnToot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Destroy(this.gameObject, 0.5f);
+        Destroy(this.gameObject, 0.2f);
     }
 
     private void OnDestroy()

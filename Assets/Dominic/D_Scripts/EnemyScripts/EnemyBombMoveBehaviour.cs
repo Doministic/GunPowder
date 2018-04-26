@@ -5,9 +5,8 @@ using UnityEngine;
 public class EnemyBombMoveBehaviour : MonoBehaviour
 {
     public float movementSpeed = 5.0f;
-    public float stoppingDistance = 5.0f;
-
-
+    public float stoppingDistance = 0.5f;
+    
     void Start()
     {
         StartCoroutine("MoveTo");
@@ -20,10 +19,6 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, ClosestEnemy().transform.position, movementSpeed * Time.deltaTime);
             yield return null;
         }
-    }
-
-    void Update()
-    {
     }
 
     public GameObject ClosestEnemy()
@@ -47,13 +42,13 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "Base")
         {
-            print("I should explode");
+            StopCoroutine("MoveTo");
             Die();
         }
     }
 
     public void Die()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, 1.0f);
     }
 }
