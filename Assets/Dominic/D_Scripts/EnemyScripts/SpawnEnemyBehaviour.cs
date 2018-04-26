@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SpawnEnemyBehaviour : MonoBehaviour
 {
-    public GameObject flyingEnemySpawn;
-    public GameObject bombEnemySpawn;
-    public GameObject golemEnemySpawn;
+    public GameObject flyingEnemy;
+    public GameObject bombEnemy;
+    public GameObject golemEnemy;
     // public GameObject protectorEnemySpawn;
     // public GameObject runtEnemySpawn;
 
@@ -98,7 +98,7 @@ public class SpawnEnemyBehaviour : MonoBehaviour
             float maxX = 10.0f;
             float randomX = Random.Range(minX, maxX);
             Vector2 spawnPoint0 = new Vector3(randomX, enemySpawnLocations[0].transform.position.y, -2);
-            Instantiate(flyingEnemySpawn, spawnPoint0, Quaternion.identity);
+            Instantiate(flyingEnemy, spawnPoint0, Quaternion.identity);
         }
 
         enemyCount++;
@@ -108,11 +108,11 @@ public class SpawnEnemyBehaviour : MonoBehaviour
     {
         if (index == 1)
         {
-            Instantiate(bombEnemySpawn, rightBombSpawn.transform.position, Quaternion.identity);
+            Instantiate(bombEnemy, rightBombSpawn.transform.position, Quaternion.identity);
         }
         else if (index == 2)
         {
-            Instantiate(bombEnemySpawn, leftBombSpawn.transform.position, Quaternion.identity);
+            Instantiate(bombEnemy, leftBombSpawn.transform.position, Quaternion.identity);
         }
         enemyCount++;
     }
@@ -122,15 +122,15 @@ public class SpawnEnemyBehaviour : MonoBehaviour
         if (index == 1 || index == 3)
         {
             float transNew;
-            Instantiate(golemEnemySpawn, rightGolemSpawn.transform.position, Quaternion.identity);
+            Instantiate(golemEnemy, rightGolemSpawn.transform.position, Quaternion.identity);
             if(transform.position.x > 0){
-                transNew = transform.position.x * -1;
-                transform.position = new Vector2 (transNew, transform.position.y);
+                transNew = transform.rotation.x * -1;
+                golemEnemy.transform.rotation = new Quaternion(0, -1, 0, .9f);
             }
         }
         else if (index == 2 || index == 4)
         {
-            Instantiate(golemEnemySpawn, leftGolemSpawn.transform.position, Quaternion.identity);
+            Instantiate(golemEnemy, leftGolemSpawn.transform.position, Quaternion.identity);
         }
         enemyCount++;
     }
