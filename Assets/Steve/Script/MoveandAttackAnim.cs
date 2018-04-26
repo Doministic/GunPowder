@@ -28,20 +28,18 @@ public class MoveandAttackAnim : MonoBehaviour {
         }
 
         {
-        float move = Input.GetAxis("Horizontal");
+            float move = horizontal;
         anim.SetFloat("Speed", move);
     }
 }
 
 void Movement()
 {
-        if(Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector2.right * 2f * Time.deltaTime);
-        }
-     if (Input.GetKey(KeyCode.A))
-        {
             transform.Translate(-Vector2.right * 2f * Time.deltaTime);
+        if (this.transform.position.x > 0)
+        {
+            anim.Play("Explode");
+
         }
     }
 
