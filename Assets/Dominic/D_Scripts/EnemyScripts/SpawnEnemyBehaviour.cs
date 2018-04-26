@@ -125,7 +125,7 @@ public class SpawnEnemyBehaviour : MonoBehaviour
             Instantiate(golemEnemy, rightGolemSpawn.transform.position, Quaternion.identity);
             if(transform.position.x > 0){
                 transNew = transform.rotation.x * -1;
-                golemEnemy.transform.rotation = new Quaternion(0, -1, 0, .9f);
+                golemEnemy.transform.rotation = new Quaternion(0, 0.9f, 0, 0);
             }
         }
         else if (index == 2 || index == 4)
