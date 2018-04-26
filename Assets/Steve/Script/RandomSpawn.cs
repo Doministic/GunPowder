@@ -16,7 +16,6 @@ public class RandomSpawn : MonoBehaviour
     public void Spawn()
     {
         transform.position = new Vector3(Random.Range(MIN_X, MAX_X), Random.Range(MIN_X, MAX_X), transform.position.z);
-        Debug.Log(transform.position.x);
         Invoke("Spawn", 0.2f);
     }
 }
