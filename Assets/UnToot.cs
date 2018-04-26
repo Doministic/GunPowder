@@ -12,7 +12,7 @@ using UnityEngine;
 	
 	// Update is called once per frame
 	void Update () {
-        Destroy(this.gameObject, 0.2f);
+        Destroy(this.gameObject, 0.1f);
     }
 
     private void OnDestroy()
