@@ -9,7 +9,7 @@ public class SpawnBulletTrail : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        InvokeRepeating("SpawnToot" , 0f, 0.05f);
+        InvokeRepeating("SpawnToot" , 0f, 0.01f);
 	}
 	
 	// Update is called once per frame
