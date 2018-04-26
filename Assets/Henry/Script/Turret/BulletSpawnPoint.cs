@@ -7,12 +7,9 @@ public class BulletSpawnPoint : MonoBehaviour
     public GameObject projectile;
 
     float time = 0.0f;
-<<<<<<< HEAD
-    float ShotTimer;
+
     private bool updateShotTimer;
-=======
     float ShotTimer = .5f;
->>>>>>> Matthew_Branch
     public bool ecoMode;
     EcoMode refEcoModeScript;
     MouseLookAtTest refMouseLookAtTest;

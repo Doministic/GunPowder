@@ -47,13 +47,13 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "Base")
         {
-            print("I should explode");
+            StopCoroutine("MoveTo");
             Die();
         }
     }
 
     public void Die()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, 1.0f);
     }
 }
