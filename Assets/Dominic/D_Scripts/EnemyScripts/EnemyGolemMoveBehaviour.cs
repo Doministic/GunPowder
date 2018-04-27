@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyGolemMoveBehaviour : MonoBehaviour
 {
     public float movementSpeed = 3.0f;
-    public float stoppingDistance = 1.3f;
+    public float stoppingDistance = 1.0f;
 
     private Animator anim;
     private bool attack;
