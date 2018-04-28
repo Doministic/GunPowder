@@ -10,9 +10,7 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
     private Animator anim;
     private bool attack;
     private int speed;
-
-
-
+    
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -60,7 +58,7 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "Base")
         {
-            other.gameObject.SendMessage("TakeDamage", 38);
+            other.gameObject.SendMessage("TakeDamage", 60);
         }
     }
 }

@@ -43,12 +43,14 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
         if (other.gameObject.tag == "Base")
         {
             StopCoroutine("MoveTo");
+            other.gameObject.SendMessage("TakeDamage", 17);
+            Debug.Log("I should be dead");
             Die();
         }
     }
 
     public void Die()
     {
-        Destroy(gameObject, 1.0f);
+        Destroy(gameObject);
     }
 }

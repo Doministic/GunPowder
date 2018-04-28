@@ -42,15 +42,14 @@ public class HomeBaseHealthBehaviour : MonoBehaviour
         {
             health -= 17;
         }
-        if (other.gameObject.tag == "Golem")
-        {
-            health -= 25;
-        }
     }
 
-    public void TakeDamage(int damageTaken){
+    public void TakeDamage(int damageTaken)
+    {
+        Debug.Log("I was hit");
         health -= damageTaken;
-        if(health <= 0){
+        if (health <= 0)
+        {
             Die();
         }
     }
@@ -58,5 +57,6 @@ public class HomeBaseHealthBehaviour : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        SceneManager.LoadScene("03_Lose_B");
     }
 }

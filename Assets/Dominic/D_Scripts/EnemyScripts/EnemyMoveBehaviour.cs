@@ -17,23 +17,18 @@ public class EnemyMoveBehaviour : MonoBehaviour
     private float blinkTime = 2;
     private int health;
     private int maxHealth = 100;
-    private int minHealth = 0;
 
     void Start()
     {
         health = maxHealth;
-        StartCoroutine(MoveTo());
+        StartCoroutine("MoveTo");
         spriteRender = gameObject.GetComponent<SpriteRenderer>();
-        if (transform.position.x > 0)
+        if (transform.position.x > 1)
         {
-            //angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.y) * Mathf.Rad2Deg;
-            //q = Quaternion.AngleAxis(angle, Vector3.forward * 0.25f);
             transform.rotation = new Quaternion(0, 0, -0.4f, 0.9f);
         }
-        else if (transform.position.x < 0)
+        else if (transform.position.x < -1)
         {
-            //angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-            //q = Quaternion.AngleAxis(angle, Vector3.forward  * -1f);
             transform.rotation = new Quaternion(0, 0, 0.4f, 0.9f);
         }
         else
@@ -47,24 +42,6 @@ public class EnemyMoveBehaviour : MonoBehaviour
         while (true)
         {
             transform.position = Vector2.MoveTowards(transform.position, ClosestEnemy().transform.position, movementSpeed * Time.deltaTime);
-            //transform.LookAt(transform.position + new Vector3(0,0,0.5f), ClosestEnemy().transform.position);
-            //Vector3 vectorToTarget = ClosestEnemy().transform.position - transform.position;
-            //float angle;
-            //Quaternion q;
-
-            // if (transform.position.x > 0)
-            // {
-            //     //angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.y) * Mathf.Rad2Deg;
-            //     //q = Quaternion.AngleAxis(angle, Vector3.forward * 0.25f);
-            //     transform.rotation = new Quaternion(0,0,-45,0);
-            // }
-            // else
-            // {
-            //     //angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-            //     //q = Quaternion.AngleAxis(angle, Vector3.forward  * -1f);
-            //     transform.rotation = new Quaternion(0,0,45,0);
-            // }
-            //transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime);
             yield return null;
         }
     }
@@ -74,14 +51,11 @@ public class EnemyMoveBehaviour : MonoBehaviour
         float distanceToTarget = Vector2.Distance(transform.position, ClosestEnemy().transform.position);
         float t = Mathf.PingPong(Time.time / blinkTime, 1);
 
-        //transform.rotation = new Quaternion(0,0,90,0);
-        Debug.Log(transform.rotation);
-
         if (distanceToTarget <= stoppingDistance)
         {
-            StopAllCoroutines();
-            Destroy(gameObject, timeTillDestroy);
+            StopCoroutine("MoveTo");
             spriteRender.color = colorGrad.Evaluate(t);
+            Die();
         }
         if (distanceToTarget <= shootingDistance)
         {
@@ -91,15 +65,10 @@ public class EnemyMoveBehaviour : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Base")
-        {
-            Debug.LogWarning("Entered Base");
-            Die();
-        }
-        else if (other.gameObject.tag == "regFriendlyBullet")
+        if (other.gameObject.tag == "regFriendlyBullet")
         {
             health -= 25;
-            if (health <= minHealth)
+            if (health <= 0)
             {
                 Die();
             }
@@ -125,11 +94,11 @@ public class EnemyMoveBehaviour : MonoBehaviour
     
     void Die()
     {
-        int clipPick = Random.Range(0, clips.Length);
-        GetComponent<AudioSource>().clip = clips[clipPick];
-        GetComponent<AudioSource>().Play();
-        //gameObject.GetComponent<Collider2D>.enabled = !enabled;
-        transform.position = new Vector2(1000, 1000);
-        Destroy(gameObject, .5f);
+        // int clipPick = Random.Range(0, clips.Length);
+        // GetComponent<AudioSource>().clip = clips[clipPick];
+        // GetComponent<AudioSource>().Play();
+        // gameObject.GetComponent<Collider2D>.enabled = !enabled;
+        //transform.position = new Vector2(1000, 1000);
+        Destroy(gameObject, timeTillDestroy);
     }
 }
