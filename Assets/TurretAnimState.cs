@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
-public class TurretFireState : MonoBehaviour
+public class TurretAnimState : MonoBehaviour
 {
     Animator TurretState;
     // Use this for initialization
