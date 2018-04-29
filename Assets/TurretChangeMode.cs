@@ -12,8 +12,16 @@ public class TurretFireState : MonoBehaviour
         // TurretState.SetBool("CannonIdle", false);
     }
     // Update is called once per frame
-    void Update()
+    public void ChangeFireState(string changeState)
     {
+        if (changeState == "idle")
+        {
+            print("Im in IdleState");
+        }
+        if (changeState == "fire")
+        {
+            print("Im in FireState");
 
+        }
     }
 }
