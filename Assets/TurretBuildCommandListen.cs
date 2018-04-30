@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SendCommandToTurrets : MonoBehaviour {
+public class TurretBuildCommandListen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -12,5 +12,9 @@ public class SendCommandToTurrets : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+	public void BuildMessage()
+	{
+		print("BuildMessage");
 	}
 }
