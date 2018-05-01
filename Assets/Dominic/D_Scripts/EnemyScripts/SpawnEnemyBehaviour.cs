@@ -7,8 +7,8 @@ public class SpawnEnemyBehaviour : MonoBehaviour
     public GameObject flyingEnemy;
     public GameObject bombEnemy;
     public GameObject golemEnemy;
-    // public GameObject protectorEnemy;
-    public GameObject runtEnemy;
+    // public GameObject protectorEnemySpawn;
+    // public GameObject runtEnemySpawn;
 
     public GameObject leftBombSpawn;
     public GameObject rightBombSpawn;
@@ -16,8 +16,8 @@ public class SpawnEnemyBehaviour : MonoBehaviour
     public GameObject rightGolemSpawn;
     // public GameObject leftProtectorSpawn;
     // public GameObject rightProtectorSpawn;
-    public GameObject leftRuntSpawn;
-    public GameObject rightRuntSpawn;
+    // public GameObject leftRuntSpawn;
+    // public GameObject rightRuntSpawn;
     public List<GameObject> enemySpawnLocations = new List<GameObject>();
     public float spawnWait;
     public float waveWait;
@@ -44,17 +44,20 @@ public class SpawnEnemyBehaviour : MonoBehaviour
                     SpawnFlyingEnemy();
                     yield return new WaitForSeconds(spawnWait);
                 }
-                if (enemyCount >= 9)
+                if (enemyCount >= 10)
                 {
                     SpawnBombEnemy();
                     yield return new WaitForSeconds(spawnWait);
                 }
-                if (enemyCount >= 19)
+                if (enemyCount >= 20)
                 {
+<<<<<<< HEAD
                     SpawnRuntEnemy();
                     yield return new WaitForSeconds(spawnWait);
                 }
                 if(enemyCount >= 50){
+=======
+>>>>>>> 51fa055efe8b266e0a801a996fc6222a03a02b46
                     SpawnGolemEnemy();
                     yield return new WaitForSeconds(spawnWait);
                 }
@@ -81,6 +84,7 @@ public class SpawnEnemyBehaviour : MonoBehaviour
         if (enemyCount > 19 && enemySpawnLocations.Count == 3){
             enemySpawnLocations.Remove(rightBombSpawn);
             enemySpawnLocations.Remove(leftBombSpawn);
+<<<<<<< HEAD
             enemySpawnLocations.Add(rightRuntSpawn);
             enemySpawnLocations.Add(leftRuntSpawn);
         }
@@ -90,6 +94,8 @@ public class SpawnEnemyBehaviour : MonoBehaviour
         if(enemyCount > 50 && enemySpawnLocations.Count == 3){
             enemySpawnLocations.Remove(rightRuntSpawn);
             enemySpawnLocations.Remove(leftRuntSpawn);
+=======
+>>>>>>> 51fa055efe8b266e0a801a996fc6222a03a02b46
             enemySpawnLocations.Add(rightGolemSpawn);
             enemySpawnLocations.Add(leftGolemSpawn);
         }
@@ -122,18 +128,6 @@ public class SpawnEnemyBehaviour : MonoBehaviour
         enemyCount++;
     }
 
-    void SpawnRuntEnemy(){
-        if (index == 1 || index == 3)
-        {
-            Instantiate(runtEnemy, rightRuntSpawn.transform.position, Quaternion.identity); 
-        }
-        else if (index == 2 || index == 4)
-        {
-            Instantiate(runtEnemy, leftRuntSpawn.transform.position, Quaternion.identity);
-        }
-        enemyCount++;
-    }
-    
     void SpawnGolemEnemy()
     {
         if (index == 1 || index == 3)

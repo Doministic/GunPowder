@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class HomeBaseHealthBehaviour : MonoBehaviour
-{
+public class HomeBaseHealthBehaviour : MonoBehaviour {
 
-    public int health;
-    public Slider healthBarSlider;
+	public int health;
+	public Slider healthBarSlider;
 
     private int minHealth = 0;
     private int maxHealth = 500;
@@ -27,9 +26,9 @@ public class HomeBaseHealthBehaviour : MonoBehaviour
         if (health <= minHealth)
         {
             Die();
-            SceneManager.LoadScene("03_Lose_B");
+			SceneManager.LoadScene("03_Lose_B");
         }
-        healthBarSlider.value = health;
+		healthBarSlider.value = health;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -38,25 +37,13 @@ public class HomeBaseHealthBehaviour : MonoBehaviour
         {
             health -= 3;
         }
-        if (other.gameObject.tag == "Bomb")
-        {
+        if(other.gameObject.tag == "Bomb"){
             health -= 17;
-        }
-    }
-
-    public void TakeDamage(int damageTaken)
-    {
-        Debug.Log("I was hit");
-        health -= damageTaken;
-        if (health <= 0)
-        {
-            Die();
         }
     }
 
     void Die()
     {
         Destroy(gameObject);
-        SceneManager.LoadScene("03_Lose_B");
     }
 }

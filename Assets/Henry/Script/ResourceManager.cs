@@ -13,7 +13,7 @@ public class ResourceManager : BaseSingletonBehaviour<ResourceManager>
         {
             if (_instance == null)
             {
-                _instance = GameObject.FindObjectOfType<ResourceManager>();
+                _instance = FindObjectOfType<ResourceManager>();
 
                 //Tell unity not to destroy this object when loading a new scene!
             }
