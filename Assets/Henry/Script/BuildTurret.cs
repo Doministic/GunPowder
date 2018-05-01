@@ -61,7 +61,7 @@ public class BuildTurret : MonoBehaviour
             {
                 print("Building Sniper");
                 Instantiate(sniper, buildLocation.transform.position, Quaternion.identity);
-                refTotalCost.updateSniperCost(50, 50);
+                refTotalCost.updateSniperCost(50, 30);
             }
             tileList.BroadcastMessage("TileIsClosed");
         }

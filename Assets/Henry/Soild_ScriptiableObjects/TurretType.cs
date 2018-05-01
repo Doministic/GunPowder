@@ -8,7 +8,7 @@ public class TurretType : ScriptableObject
     public string turretType;
 	public GameObject TurretPrefab;
 	
-	[Range(0,15)]
+	[Range(0,100)]
 	public int turretHealth;
 	public int turretDamage;
 	[Range(0,1)]

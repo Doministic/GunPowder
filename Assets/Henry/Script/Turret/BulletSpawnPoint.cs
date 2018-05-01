@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletSpawnPoint : MonoBehaviour
 {
     public GameObject projectile;
+    public GameObject flash;
 
     float time = 0.0f;
 
@@ -48,6 +49,7 @@ public class BulletSpawnPoint : MonoBehaviour
             time = 0;
             transform.localEulerAngles = new Vector3(0, 0, Random.Range(-15, 15));
             GameObject bullet = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
+            GameObject flashPrefab = Instantiate (flash,transform.position, transform.rotation) as GameObject;
             bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 2000.0f);
             if (updateShotTimer == true)
             {
