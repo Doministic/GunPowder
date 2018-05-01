@@ -6,10 +6,40 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
 {
     public float movementSpeed = 5.0f;
     public float stoppingDistance = 0.5f;
+
+    ResourceManager resourceManager;
+    private int grainLevel;
+    private int scrapLevel;
+    private const int maxGrain = 5;
+    private const int maxScrap = 200;
     
     void Start()
     {
+        grainLevel = maxGrain;
+        scrapLevel = maxScrap;
+        resourceManager = FindObjectOfType<ResourceManager>();
         StartCoroutine("MoveTo");
+    }
+
+    private void Update()
+    {
+        if(grainLevel <= 0 || scrapLevel <= 0){
+            Die();
+        }
+    }
+
+    private void OnBecameVisible()
+    {
+        StartCoroutine("GrainConsume");
+    }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Base")
+        {
+            other.gameObject.SendMessage("TakeDamage", 17);
+            Die();
+        }
     }
 
     IEnumerator MoveTo()
@@ -21,6 +51,12 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
         }
     }
 
+    IEnumerator GrainConsume(){
+        while(true){
+            grainLevel--;
+            yield return new WaitForSeconds(1.25f);
+        }
+    }
     public GameObject ClosestEnemy()
     {
         GameObject[] gos;
@@ -38,17 +74,15 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
         return closestEnemy;
     }
 
-    public void OnCollisionEnter2D(Collision2D other)
+    void Die()
     {
-        if (other.gameObject.tag == "Base")
-        {
-            StopCoroutine("MoveTo");
-            Die();
-        }
+        Destroy(gameObject);
     }
 
-    public void Die()
+    private void OnDestroy()
     {
-        Destroy(gameObject, 1.0f);
+        resourceManager.GrainManager(grainLevel);
+        resourceManager.ScrapManager(scrapLevel);
     }
+
 }
