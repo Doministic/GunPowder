@@ -13,12 +13,14 @@ public class BuildTurret : MonoBehaviour
     public GameObject tileList;
 
     TileSelected selectionRef;
+    TileTaken tileTakenRef;
 
     public GameObject buildLocation;
     // Use this for initialization
     void Start()
     {
         selectionRef = this.GetComponent<TileSelected>();
+        tileTakenRef = this.GetComponent<TileTaken>();
         tileList = GameObject.Find("Tile List");
     }
 
@@ -29,7 +31,7 @@ public class BuildTurret : MonoBehaviour
     }
     public void BuildTurretOfTypeCommand(string turretType)
     {
-        if (selectionRef.tileSelected)
+        if (selectionRef.tileSelected && tileTakenRef.tileOpen)
         {
             if (turretType == "Machine Gun")
             {
@@ -51,7 +53,7 @@ public class BuildTurret : MonoBehaviour
                 print("Building Sniper");
                 Instantiate(sniper, buildLocation.transform.position, Quaternion.identity);
             }
-            tileList.BroadcastMessage("DeselectAfterBuild");
+            tileList.BroadcastMessage("TileIsClosed");
         }
     }
 }
