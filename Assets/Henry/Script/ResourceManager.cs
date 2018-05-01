@@ -22,23 +22,26 @@ public class ResourceManager : BaseSingletonBehaviour<ResourceManager>
         }
     }
 
-    void Awake()
+    // void Awake()
+    // {
+    //     if (_instance == null)
+    //     {
+    //         //If I am the first instance, make me the Singleton
+    //         _instance = this;
+    //         DontDestroyOnLoad(this);
+    //     }
+    //     else
+    //     {
+    //         //If a Singleton already exists and you find
+    //         //another reference in scene, destroy it!
+    //         if (this != _instance)
+    //             Destroy(this.gameObject);
+    //     }
+    // }
+    private void Update()
     {
-        if (_instance == null)
-        {
-            //If I am the first instance, make me the Singleton
-            _instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            //If a Singleton already exists and you find
-            //another reference in scene, destroy it!
-            if (this != _instance)
-                Destroy(this.gameObject);
-        }
+        Debug.Log("Resource scrap currently at: " + scrap);
     }
-
     public void GrainManager(int grainToChange)
     {
         grain += grainToChange;
