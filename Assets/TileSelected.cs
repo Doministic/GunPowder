@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TileSelected : MonoBehaviour
 {
-    public bool selectionStatus;
+    public GameObject tileList;
+    public static GameObject thisTile;
+    public bool tileSelected;
+    public Material yesBuildMat;
+    public Material noBuildMat;
 
     void Update()
     {
@@ -12,6 +17,31 @@ public class TileSelected : MonoBehaviour
     }
     void OnMouseDown()
     {
-        selectionStatus = !selectionStatus;
+        tileSelected = !tileSelected;
+
+        if (tileSelected == true)
+        {
+            SelectTile();
+            thisTile = this.gameObject;
+            tileList.BroadcastMessage("DeselectTile");
+        }
+        else
+        {
+            thisTile = null;
+            DeselectTile();
+        }
+    }
+    public void DeselectTile()
+    {
+        if (thisTile != this.gameObject)
+        {
+            tileSelected = false;
+            GetComponent<Renderer>().material = noBuildMat;
+        }
+    }
+    public void SelectTile()
+    {
+        tileSelected = true;
+        GetComponent<Renderer>().material = yesBuildMat;
     }
 }
