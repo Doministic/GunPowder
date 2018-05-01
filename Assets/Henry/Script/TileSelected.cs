@@ -11,7 +11,11 @@ public class TileSelected : MonoBehaviour
     public Material yesBuildMat;
     public Material noBuildMat;
 
-    void Update()
+	void Start()
+	{
+        tileList = GameObject.Find("Tile List");
+	}
+	void Update()
     {
 
     }
