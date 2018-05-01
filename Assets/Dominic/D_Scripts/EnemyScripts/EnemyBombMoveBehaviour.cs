@@ -6,6 +6,7 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
 {
     public float movementSpeed = 5.0f;
     public float stoppingDistance = 0.5f;
+    public AudioClip[] clips;
 
     ResourceManager resourceManager;
     private int grainLevel;
@@ -76,6 +77,10 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
 
     void Die()
     {
+        int clipPick = Random.Range(0, clips.Length);
+        GetComponent<AudioSource>().clip = clips[clipPick];
+        GetComponent<AudioSource>().Play();
+        transform.position = new Vector2(1000, 1000);
         Destroy(gameObject);
     }
 
