@@ -26,7 +26,6 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         resourceManager = FindObjectOfType<ResourceManager>();
         animator = GetComponent<Animator>();
-        StartCoroutine("MoveTo");
         if (transform.position.x > 0)
         {
             transform.rotation = new Quaternion(0, 0.9f, 0, 0);
@@ -42,6 +41,10 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
             StopCoroutine("MoveTo");
             spriteRenderer.color = colorGrad.Evaluate(t);
             animator.SetTrigger("Attack");
+        }
+        else
+        {
+            StartCoroutine("MoveTo");
         }
         if (grainLevel <= 0 || scrapLevel <= 0)
         {

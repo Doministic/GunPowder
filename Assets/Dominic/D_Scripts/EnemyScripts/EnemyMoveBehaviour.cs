@@ -26,7 +26,6 @@ public class EnemyMoveBehaviour : MonoBehaviour
         scrapLevel = maxScrap;
         resourceManager = FindObjectOfType<ResourceManager>();
         spriteRender = gameObject.GetComponent<SpriteRenderer>();
-        StartCoroutine("MoveTo");
         if (transform.position.x > 1.5f)
         {
             transform.rotation = new Quaternion(0, 0, -0.4f, 0.9f);
@@ -51,6 +50,10 @@ public class EnemyMoveBehaviour : MonoBehaviour
             StopCoroutine("MoveTo");
             Destroy(gameObject, timeTillDestroy);
             spriteRender.color = colorGrad.Evaluate(t);
+        }
+        else
+        {
+            StartCoroutine("MoveTo");
         }
         if (distanceToTarget <= shootingDistance)
         {
