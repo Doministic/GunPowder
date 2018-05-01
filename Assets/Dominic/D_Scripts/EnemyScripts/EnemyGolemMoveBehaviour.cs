@@ -7,6 +7,7 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
     public float movementSpeed = 3.0f;
     public float stoppingDistance = 1.3f;
     public Gradient colorGrad;
+    public AudioClip[] clips;
 
     ResourceManager resourceManager;
     private SpriteRenderer spriteRenderer;
@@ -67,6 +68,9 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
 
         if (other.gameObject.tag == "regFriendlyBullet")
         {
+            int clipPick = Random.Range(0, clips.Length);
+            GetComponent<AudioSource>().clip = clips[clipPick];
+            GetComponent<AudioSource>().Play();
             scrapLevel -= 75;
         }
     }
@@ -108,6 +112,7 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
 
     private void Die()
     {
+        transform.position = new Vector2(1000, 1000);
         Destroy(gameObject);
     }
 

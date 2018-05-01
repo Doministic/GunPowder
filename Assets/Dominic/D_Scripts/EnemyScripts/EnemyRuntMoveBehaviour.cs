@@ -9,6 +9,7 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
     public float stoppingDistance = 0.9f;
     public float timeTillDestroy = 5.0f;
     public Gradient colorGrad;
+    public AudioClip[] clips;
 
     ResourceManager resourceManager;
     private SpriteRenderer spriteRenderer;
@@ -68,6 +69,9 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         }
         if (other.gameObject.tag == "regFriendlyBullet")
         {
+            int clipPick = Random.Range(0, clips.Length);
+            GetComponent<AudioSource>().clip = clips[clipPick];
+            GetComponent<AudioSource>().Play();
             scrapLevel -= 50;
         }
     }
@@ -109,6 +113,7 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
 
     public void Die()
     {
+        transform.position = new Vector2(1000, 1000);
         Destroy(gameObject);
     }
 

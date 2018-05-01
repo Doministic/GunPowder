@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyMoveBehaviour : MonoBehaviour
 {
     public AudioClip[] clips;
-
     public float movementSpeed = 5.0f;
     public float stoppingDistance = 5.0f;
     public float shootingDistance = 8.0f;
@@ -118,6 +117,7 @@ public class EnemyMoveBehaviour : MonoBehaviour
         int clipPick = Random.Range(0, clips.Length);
         GetComponent<AudioSource>().clip = clips[clipPick];
         GetComponent<AudioSource>().Play();
+        transform.position = new Vector2(1000, 1000);
         Destroy(gameObject);
     }
 
