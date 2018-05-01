@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class RefundTurret : MonoBehaviour
 {
-Turret refRefundCommand;
+    Turret refRefundCommand;
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -20,6 +19,6 @@ Turret refRefundCommand;
     public void RefundSelectedTurrets()
     {
         refRefundCommand = FindObjectOfType<Turret>();
-		refRefundCommand.SendMessage("RefundTurret");
+        refRefundCommand.SendMessage("RefundTurret");
     }
 }

@@ -13,6 +13,7 @@ public class BulletSpawnPoint : MonoBehaviour
     float ShotTimer = .5f;
     public bool ecoMode;
     EcoMode refEcoModeScript;
+    Turret refTurret;
     MouseLookAtTest refMouseLookAtTest;
 
     void Start()
@@ -27,7 +28,9 @@ public class BulletSpawnPoint : MonoBehaviour
             updateShotTimer = false;
         }
         print(ShotTimer);
+
         refMouseLookAtTest = GetComponentInParent<MouseLookAtTest>();
+        refTurret = GetComponentInParent<Turret>();
         refEcoModeScript = transform.parent.GetChild(2).GetComponent<EcoMode>();
     }
     void Update()
@@ -40,6 +43,10 @@ public class BulletSpawnPoint : MonoBehaviour
         {
             SpawnBullet();
         }
+        if (Input.GetKeyDown(KeyCode.F) && refTurret.turretSelected)
+        {
+            FlipEcoMode();
+        }
     }
     public void SpawnBullet()
     {
@@ -49,13 +56,17 @@ public class BulletSpawnPoint : MonoBehaviour
             time = 0;
             transform.localEulerAngles = new Vector3(0, 0, Random.Range(-15, 15));
             GameObject bullet = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
-            GameObject flashPrefab = Instantiate (flash,transform.position, transform.rotation) as GameObject;
+            GameObject flashPrefab = Instantiate(flash, transform.position, transform.rotation) as GameObject;
             bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * 2000.0f);
             if (updateShotTimer == true)
             {
                 ShotTimer = GetComponentInParent<Turret>().turret.turretFireRate;
             }
         }
+    }
+    public void FlipEcoMode()
+    {
+        ecoMode = !ecoMode;
     }
 }
 

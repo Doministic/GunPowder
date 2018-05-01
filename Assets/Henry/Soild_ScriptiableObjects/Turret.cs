@@ -26,25 +26,43 @@ public class Turret : MonoBehaviour
     }
     public void RefundTurret()
     {
-        if (rotary == true)
+
+        if (rotary == true && turretSelected == true)
         {
-            refTotalCost.updateMachineGunCost(-35,-45);
+            refTotalCost.updateMachineGunCost(-35, -45);
+            DrawRayAndSendMessage();
+
             Destroy(gameObject);
         }
-        if (wideshot == true)
+        if (wideshot == true && turretSelected == true)
         {
-            refTotalCost.updateWideShotCost(-60,-20);
+            refTotalCost.updateWideShotCost(-60, -20);
+            DrawRayAndSendMessage();
+
             Destroy(gameObject);
         }
-        if (cannon == true)
+        if (cannon == true && turretSelected == true)
         {
-            refTotalCost.updateCannonCost(-25,-55);
+            refTotalCost.updateCannonCost(-25, -55);
+            DrawRayAndSendMessage();
+
             Destroy(gameObject);
         }
-        if (precision == true)
+        if (precision == true && turretSelected == true)
         {
-            refTotalCost.updateSniperCost(-50,-30);
+            refTotalCost.updateSniperCost(-50, -30);
+            DrawRayAndSendMessage();
+
             Destroy(gameObject);
+        }
+    }
+    public void DrawRayAndSendMessage()
+    {
+        RaycastHit hitinfo;
+        if (Physics.Raycast(transform.position, Vector3.forward, out hitinfo, 2))
+        {
+            print(hitinfo.collider.name);
+            hitinfo.collider.SendMessage("TileIsOpen");
         }
     }
 }
