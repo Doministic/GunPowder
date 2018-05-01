@@ -48,4 +48,9 @@ public class TileSelected : MonoBehaviour
         tileSelected = true;
         GetComponent<Renderer>().material = yesBuildMat;
     }
+    public void DeselectAfterBuild()
+    {
+        tileSelected = false;
+        GetComponent<Renderer>().material = noBuildMat;
+    }
 }

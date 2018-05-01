@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildTurret : MonoBehaviour
 {
@@ -50,7 +51,7 @@ public class BuildTurret : MonoBehaviour
                 print("Building Sniper");
                 Instantiate(sniper, buildLocation.transform.position, Quaternion.identity);
             }
-            tileList.BroadcastMessage("DeselectTile");
+            tileList.BroadcastMessage("DeselectAfterBuild");
         }
     }
 }
