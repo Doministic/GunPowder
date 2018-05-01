@@ -6,7 +6,7 @@ public class MousePosition : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             Vector3 MousePosition = Input.mousePosition;
             MousePosition.z = Camera.main.transform.position.z * -1;

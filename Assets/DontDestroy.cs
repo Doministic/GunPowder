@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : BaseSingletonBehaviour<ResourceManager>
+public class DontDestroy : BaseSingletonBehaviour<DontDestroy>
 {
-    private static ResourceManager _instance;
-    public int grain;
-    public int scrap;
-    public static ResourceManager instance
+    private static DontDestroy _instance;
+    public static DontDestroy instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<ResourceManager>();
+                _instance = GameObject.FindObjectOfType<DontDestroy>();
 
                 //Tell unity not to destroy this object when loading a new scene!
             }
@@ -37,14 +35,5 @@ public class ResourceManager : BaseSingletonBehaviour<ResourceManager>
             if (this != _instance)
                 Destroy(this.gameObject);
         }
-    }
-
-    public void GrainManager(int grainToChange)
-    {
-        grain += grainToChange;
-    }
-    public void ScrapManager(int scrapToChange)
-    {
-        scrap += scrapToChange;
     }
 }

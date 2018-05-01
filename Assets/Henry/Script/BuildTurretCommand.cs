@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class BuildTurretCommand : MonoBehaviour
 {
     public GameObject commandReceiver;
+    ResourceManager refResourceManager;
     // Use this for initialization
     void Start()
     {
-
+        refResourceManager = FindObjectOfType<ResourceManager>();
     }
     // Update is called once per frame
     void Update()
