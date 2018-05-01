@@ -47,17 +47,4 @@ public class BombMovement : MonoBehaviour
             }
         }
     }
-    public void OnTriggerEnter2D (Collider2D other)
-    {
-        if (other.gameObject.tag == "Protector")
-        {
-           other.gameObject.SendMessage("Explode");
-        }
-    }
-    void Explode()
-    {
-        die = true;
-        anim.Play("explode");
-    
-    }
 }
