@@ -34,17 +34,17 @@ public class Turret : MonoBehaviour
         if (wideshot == true)
         {
             refTotalCost.updateWideShotCost(-60,-20);
-
+            Destroy(gameObject);
         }
         if (cannon == true)
         {
             refTotalCost.updateCannonCost(-25,-55);
-
+            Destroy(gameObject);
         }
         if (precision == true)
         {
             refTotalCost.updateSniperCost(-50,-30);
-
+            Destroy(gameObject);
         }
     }
 }

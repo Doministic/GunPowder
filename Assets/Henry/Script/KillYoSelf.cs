@@ -6,10 +6,6 @@ public class KillYoSelf : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            transform.position = new Vector3(1000, 1000, 1000);
-            Destroy(gameObject, 2);
-        }
+            Destroy(gameObject, .5f);
     }
 }

@@ -40,7 +40,7 @@ public class ResourceManager : BaseSingletonBehaviour<ResourceManager>
     // }
     private void Update()
     {
-        Debug.Log("Resource scrap currently at: " + scrap);
+        // Debug.Log("Resource scrap currently at: " + scrap);
     }
     public void GrainManager(int grainToChange)
     {
