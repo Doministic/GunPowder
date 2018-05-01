@@ -27,7 +27,7 @@ public class SpawnEnemyBehaviour : MonoBehaviour
     private float startWait = 1.5f;
     private int enemyCount;
     private int index;
-    private int totalEnemyCount;
+    private const int totalEnemyCount = 75;
     private int waveCount;
     private int totalWaveCount;
 
@@ -66,7 +66,6 @@ public class SpawnEnemyBehaviour : MonoBehaviour
 
     void Start()
     {
-        totalEnemyCount = Random.Range(minTotalEnemyCount, maxTotalEnemyCount);
         StartCoroutine(SpawnEnemyCoroutine());
     }
 

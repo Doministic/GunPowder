@@ -28,7 +28,6 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         resourceManager = FindObjectOfType<ResourceManager>();
         anim = GetComponent<Animator>();
-        StartCoroutine("MoveTo");
         if (transform.position.x > 0)
         {
             transform.rotation = new Quaternion(0, 0.9f, 0, 0);
@@ -48,6 +47,10 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
             StopCoroutine("MoveTo");
             spriteRenderer.color = colorGrad.Evaluate(t);
             anim.SetTrigger("Attack");
+        }
+        else
+        {
+            StartCoroutine("MoveTo");
         }
     }
 
