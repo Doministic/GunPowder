@@ -42,22 +42,25 @@ public class SpawnEnemyBehaviour : MonoBehaviour
                 if (enemyCount >= 0)
                 {
                     SpawnFlyingEnemy();
+                    yield return new WaitForSeconds(spawnWait);
                 }
                 if (enemyCount >= 9)
                 {
                     SpawnBombEnemy();
+                    yield return new WaitForSeconds(spawnWait);
                 }
                 if (enemyCount >= 19)
                 {
                     SpawnRuntEnemy();
+                    yield return new WaitForSeconds(spawnWait);
                 }
-                if(enemyCount >= 29){
+                if(enemyCount >= 50){
                     SpawnGolemEnemy();
+                    yield return new WaitForSeconds(spawnWait);
                 }
                 yield return new WaitForSeconds(spawnWait);
             }
             yield return new WaitForSeconds(waveWait);
-            //WaveChange();
         }
     }
 
@@ -81,22 +84,15 @@ public class SpawnEnemyBehaviour : MonoBehaviour
             enemySpawnLocations.Add(rightRuntSpawn);
             enemySpawnLocations.Add(leftRuntSpawn);
         }
-        if(enemyCount > 29 && enemySpawnLocations.Count == 3){
+        if(enemyCount > 30 && enemySpawnLocations.Count == 3){
+            
+        }
+        if(enemyCount > 50 && enemySpawnLocations.Count == 3){
             enemySpawnLocations.Remove(rightRuntSpawn);
             enemySpawnLocations.Remove(leftRuntSpawn);
             enemySpawnLocations.Add(rightGolemSpawn);
             enemySpawnLocations.Add(leftGolemSpawn);
         }
-        //Debug.Log("The enemy count is " + enemyCount);
-    }
-
-    void WaveChange()
-    {
-        waveCount++;
-        waveWait += 5;
-        minTotalEnemyCount += 10;
-        maxTotalEnemyCount += 20;
-        spawnWait -= 1.5f;
     }
 
     void SpawnFlyingEnemy()

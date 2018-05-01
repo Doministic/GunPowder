@@ -16,9 +16,9 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
     private bool attack;
     private int speed;
     private float blinkTime = 2;
-    private int grainLevel;
+    private int grainLevel = 0;
     private bool grainDestroy = false;
-    private int scrapLevel;
+    private int scrapLevel = 0;
     private const int maxGrain = 200;
     private const int maxScrap = 300;
 
@@ -27,8 +27,13 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         grainLevel = maxGrain;
         scrapLevel = maxScrap;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        resourceManager = Object.FindObjectOfType<ResourceManager>();
         anim = GetComponent<Animator>();
         StartCoroutine("MoveTo");
+        if (transform.position.x > 0)
+        {
+            transform.rotation = new Quaternion(0, 0.9f, 0, 0);
+        }
     }
 
     void Update()
@@ -37,14 +42,14 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         float t = Mathf.PingPong(Time.time / blinkTime, 1);
         Debug.Log("The Gran Level is: " + grainLevel);
         Debug.Log("The Scrap Level is: " + scrapLevel);
-        if (grainDestroy)
-        {
-            InvokeRepeating("ConsumeGrain", 1.0f, 20.0f);
-        }
         if (grainLevel <= 0)
         {
-            grainLevel = 0;
-            CancelInvoke("ConsumeGrain");
+            StopCoroutine("ConsumeGrain");
+            Die();
+        }
+        if (scrapLevel <= 0)
+        {
+
             Die();
         }
         if (distanceToTarget <= stoppingDistance)
@@ -53,28 +58,28 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
             spriteRenderer.color = colorGrad.Evaluate(t);
             anim.SetTrigger("Attack");
         }
-    }
-
-    private void OnBecameVisible()
-    {
-        grainDestroy = true;
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            scrapLevel = 0;
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Base")
         {
-			Debug.Log("Hit");
+            Debug.Log("Hit");
             other.gameObject.SendMessage("TakeDamage", 40);
         }
         if (other.gameObject.tag == "regFriendlyBullet")
         {
-            scrapLevel -= 25;
-            if (scrapLevel == 0)
-            {
-                Die();
-            }
+            //scrapLevel -= 50;
         }
+    }
+
+    private void OnBecameVisible()
+    {
+        //StartCoroutine("ConsumeGrain");
     }
 
     IEnumerator MoveTo()
@@ -86,9 +91,13 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         }
     }
 
-    void ConsumeGrain()
+    IEnumerator ConsumeGrain()
     {
-        grainLevel = grainLevel - 1;
+        while (true)
+        {
+            grainLevel--;
+            yield return new WaitForSeconds(0.025f);
+        }
     }
 
     public GameObject ClosestEnemy()
@@ -108,10 +117,12 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         return closestEnemy;
     }
 
-
     public void Die()
     {
         transform.position = new Vector2(1000, 1000);
         Destroy(gameObject, timeTillDestroy);
+        resourceManager.GrainManager(100);
+        resourceManager.ScrapManager(100);
+
     }
 }

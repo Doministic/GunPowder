@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class AutoResources : MonoBehaviour
 {
-    public int grain;
-    public int scrap;
+    public int grain = 1;
+    public int scrap = 1;
     ResourceManager autoResources;
     void Start()
     {
         autoResources = Object.FindObjectOfType<ResourceManager>();
-		InvokeRepeating("upResources",1,.5f);
+        StartCoroutine("UpResources");
     }
 
-    void upResources()
+    IEnumerator UpResources()
     {
-        autoResources.GrainManager(grain);
-        autoResources.ScrapManager(scrap);
+        while (true)
+        {
+            autoResources.GrainManager(grain);
+            autoResources.ScrapManager(scrap);
+            yield return new WaitForSeconds(1);
+        }
     }
 }
