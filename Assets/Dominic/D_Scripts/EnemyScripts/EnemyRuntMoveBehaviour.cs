@@ -17,7 +17,6 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
     private int speed;
     private float blinkTime = 2;
     private int grainLevel = 0;
-    private bool grainDestroy = false;
     private int scrapLevel = 0;
     private const int maxGrain = 200;
     private const int maxScrap = 300;
@@ -26,8 +25,8 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
     {
         grainLevel = maxGrain;
         scrapLevel = maxScrap;
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        resourceManager = Object.FindObjectOfType<ResourceManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        resourceManager = FindObjectOfType<ResourceManager>();
         anim = GetComponent<Animator>();
         StartCoroutine("MoveTo");
         if (transform.position.x > 0)
@@ -40,16 +39,8 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
     {
         float distanceToTarget = Vector2.Distance(transform.position, ClosestEnemy().transform.position);
         float t = Mathf.PingPong(Time.time / blinkTime, 1);
-        Debug.Log("The Gran Level is: " + grainLevel);
-        Debug.Log("The Scrap Level is: " + scrapLevel);
-        if (grainLevel <= 0)
+        if (grainLevel <= 0 || scrapLevel <= 0)
         {
-            StopCoroutine("ConsumeGrain");
-            Die();
-        }
-        if (scrapLevel <= 0)
-        {
-
             Die();
         }
         if (distanceToTarget <= stoppingDistance)
@@ -58,10 +49,11 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
             spriteRenderer.color = colorGrad.Evaluate(t);
             anim.SetTrigger("Attack");
         }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            scrapLevel = 0;
-        }
+    }
+
+    private void OnBecameVisible()
+    {
+        StartCoroutine("ConsumeGrain");
     }
 
     public void OnCollisionEnter2D(Collision2D other)
@@ -73,13 +65,8 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         }
         if (other.gameObject.tag == "regFriendlyBullet")
         {
-            //scrapLevel -= 50;
+            scrapLevel -= 50;
         }
-    }
-
-    private void OnBecameVisible()
-    {
-        //StartCoroutine("ConsumeGrain");
     }
 
     IEnumerator MoveTo()
@@ -96,7 +83,7 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
         while (true)
         {
             grainLevel--;
-            yield return new WaitForSeconds(0.025f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -119,10 +106,12 @@ public class EnemyRuntMoveBehaviour : MonoBehaviour
 
     public void Die()
     {
-        transform.position = new Vector2(1000, 1000);
-        Destroy(gameObject, timeTillDestroy);
-        resourceManager.GrainManager(100);
-        resourceManager.ScrapManager(100);
+        Destroy(gameObject);
+    }
 
+    private void OnDestroy()
+    {
+        resourceManager.GrainManager(grainLevel);
+        resourceManager.ScrapManager(scrapLevel);
     }
 }

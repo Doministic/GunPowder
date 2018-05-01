@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class BulletKill : MonoBehaviour {
 
-	public void Start()
-	{
-		Destroy(gameObject, 0.75f);
+	public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Base")
+        {
+            other.gameObject.SendMessage("TakeDamage", 3);
+            Die();
+        }
+    }
+
+	private void Die(){
+		Destroy(gameObject, 1.0f);
 	}
 }

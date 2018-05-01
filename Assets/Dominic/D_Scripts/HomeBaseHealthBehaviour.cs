@@ -19,31 +19,29 @@ public class HomeBaseHealthBehaviour : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            health -= 25;
-        }
-        if (health <= minHealth)
-        {
-            Die();
-			SceneManager.LoadScene("03_Lose_B");
-        }
+        
 		healthBarSlider.value = health;
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "regEnemyBullet")
+    public void TakeDamage(int damageTaken){
+        Debug.Log("damage taken");
+        health -= damageTaken;
+        if (health <= minHealth)
         {
-            health -= 3;
-        }
-        if(other.gameObject.tag == "Bomb"){
-            health -= 17;
+            Die();
         }
     }
 
     void Die()
     {
-        Destroy(gameObject);
+        Time.timeScale = 0;
+        Destroy(gameObject, 0.5f);
     }
+
+    private void OnDestroy()
+    {
+    	SceneManager.LoadScene("03_Lose_B");
+    }
+
+
 }
