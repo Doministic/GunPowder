@@ -18,25 +18,31 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        float autoLoadNextLevel = 3.5f;
         pauseMenuUI = GameObject.Find("PauseMenu");
         realTimePauseUI = GameObject.Find("RealTimePause");
         Time.timeScale = 1;
-
-        if (SceneManager.GetActiveScene().buildIndex > 2)
+         if (SceneManager.GetActiveScene().buildIndex > 2)
         {
             if (pauseMenuUI != null)
             {
                 pauseMenuUI.SetActive(false);
             }
-
+            else
+            {
+                pauseMenuUI = null;
+            }
             if (realTimePauseUI != null)
             {
                 realTimePauseUI.SetActive(false);
             }
+            else
+            {
+                realTimePauseImage = null;
+            }
         }
         else
         {
+            float autoLoadNextLevel = 3.5f;
             Invoke("LoadNextLevel", autoLoadNextLevel);
             pauseMenuUI = null;
             realTimePauseUI = null;
@@ -73,9 +79,12 @@ public class LevelManager : MonoBehaviour
         {
             realTimePauseImage.fillAmount -= 1.5f / realTimeWaitTime * Time.unscaledDeltaTime;
         }
-        else if (!isRealTimePaused && realTimePauseImage.fillAmount >= 0){
+        else if (!isRealTimePaused && realTimePauseImage.fillAmount >= 0)
+        {
             realTimePauseImage.fillAmount += 0.5f / realTimeWaitTime * Time.unscaledDeltaTime;
         }
+
+       
     }
 
     public void LoadLevel(string levelName)
