@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class HomeBaseHealthBehaviour : MonoBehaviour {
+public class HomeBaseHealthBehaviour : MonoBehaviour
+{
 
-	public int health;
-	public Slider healthBarSlider;
+    public int health = 500;
+    public Slider healthBarSlider;
 
-    private int minHealth = 0;
     private int maxHealth = 500;
 
     void Start()
@@ -19,29 +19,20 @@ public class HomeBaseHealthBehaviour : MonoBehaviour {
 
     private void Update()
     {
-        
-		healthBarSlider.value = health;
-    }
-
-    public void TakeDamage(int damageTaken){
-        Debug.Log("damage taken");
-        health -= damageTaken;
-        if (health <= minHealth)
+        healthBarSlider.value = health;
+        if (health <= 0)
         {
             Die();
         }
     }
 
+    public void TakeDamage(int damageTaken)
+    {
+        health -= damageTaken;
+    }
+
     void Die()
     {
-        Time.timeScale = 0;
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 0.1f);
     }
-
-    private void OnDestroy()
-    {
-    	SceneManager.LoadScene("03_Lose_B");
-    }
-
-
 }

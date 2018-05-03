@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TotalRentCost : MonoBehaviour
 {
+    ResourceManager resourceManager;
     TotalCost totalRentCost;
     public int totalGrainCost;
     public int totalScrapCost;
@@ -13,6 +14,7 @@ public class TotalRentCost : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        resourceManager = FindObjectOfType<ResourceManager>();
         totalCost = GetComponent<Text>();
         totalRentCost = FindObjectOfType<TotalCost>();
     }
@@ -31,5 +33,9 @@ public class TotalRentCost : MonoBehaviour
     public void addScraps()
     {
         totalScrapCost = totalRentCost.machineGunScrap + totalRentCost.wideShotScrap + totalRentCost.cannonScrap + totalRentCost.sniperScrap;
+    }
+    public void UpdateResources(){
+        resourceManager.GrainManager(-totalGrainCost);
+        resourceManager.ScrapManager(-totalScrapCost);
     }
 }

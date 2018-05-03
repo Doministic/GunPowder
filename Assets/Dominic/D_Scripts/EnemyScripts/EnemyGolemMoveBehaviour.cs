@@ -27,6 +27,7 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         resourceManager = FindObjectOfType<ResourceManager>();
         animator = GetComponent<Animator>();
+        StartCoroutine("MoveTo");
         if (transform.position.x > 0)
         {
             transform.rotation = new Quaternion(0, 0.9f, 0, 0);
@@ -42,10 +43,6 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
             StopCoroutine("MoveTo");
             spriteRenderer.color = colorGrad.Evaluate(t);
             animator.SetTrigger("Attack");
-        }
-        else
-        {
-            StartCoroutine("MoveTo");
         }
         if (grainLevel <= 0 || scrapLevel <= 0)
         {
@@ -71,7 +68,20 @@ public class EnemyGolemMoveBehaviour : MonoBehaviour
             int clipPick = Random.Range(0, clips.Length);
             GetComponent<AudioSource>().clip = clips[clipPick];
             GetComponent<AudioSource>().Play();
+            scrapLevel -= 60;
+            grainLevel -= 60;
+        }
+        else if(other.gameObject.tag == "Shotgun Bullet"){
             scrapLevel -= 75;
+            grainLevel -= 85;
+        }
+        else if(other.gameObject.tag == "CannonBullet"){
+            scrapLevel -= 85;
+            grainLevel -= 75;
+        }
+        else if(other.gameObject.tag == "SniperBullet"){
+            scrapLevel -= 150;
+            grainLevel -= 170;
         }
     }
 

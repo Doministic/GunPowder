@@ -10,34 +10,26 @@ public class LevelManager : MonoBehaviour
     public static bool isPaused = false;
     public static bool isRealTimePaused = false;
 
+    GameManager gameManager;
     private GameObject pauseMenuUI;
     private GameObject realTimePauseUI;
     private float timeDelay = 5;
     private float realTimeWaitTime = 10.0f;
-
 
     void Start()
     {
         pauseMenuUI = GameObject.Find("PauseMenu");
         realTimePauseUI = GameObject.Find("RealTimePause");
         Time.timeScale = 1;
-         if (SceneManager.GetActiveScene().buildIndex > 2)
+        if (SceneManager.GetActiveScene().buildIndex > 2 || SceneManager.GetActiveScene().name == "02_Level_DayTime")
         {
             if (pauseMenuUI != null)
             {
                 pauseMenuUI.SetActive(false);
             }
-            else
-            {
-                pauseMenuUI = null;
-            }
             if (realTimePauseUI != null)
             {
                 realTimePauseUI.SetActive(false);
-            }
-            else
-            {
-                realTimePauseImage = null;
             }
         }
         else
@@ -46,6 +38,7 @@ public class LevelManager : MonoBehaviour
             Invoke("LoadNextLevel", autoLoadNextLevel);
             pauseMenuUI = null;
             realTimePauseUI = null;
+            realTimePauseImage = null;
         }
     }
 
@@ -83,8 +76,6 @@ public class LevelManager : MonoBehaviour
         {
             realTimePauseImage.fillAmount += 0.5f / realTimeWaitTime * Time.unscaledDeltaTime;
         }
-
-       
     }
 
     public void LoadLevel(string levelName)
@@ -110,14 +101,12 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         isRealTimePaused = false;
-        //timeDelay = 5.0f;
     }
 
     public void RealTimePause()
     {
         realTimePauseUI.SetActive(true);
         Time.timeScale = 0;
-        //timeDelay =5;
         isRealTimePaused = true;
     }
 

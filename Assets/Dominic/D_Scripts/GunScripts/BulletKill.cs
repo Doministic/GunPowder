@@ -14,6 +14,6 @@ public class BulletKill : MonoBehaviour {
     }
 
 	private void Die(){
-		Destroy(gameObject, 1.0f);
+		Destroy(gameObject, 0.9f);
 	}
 }

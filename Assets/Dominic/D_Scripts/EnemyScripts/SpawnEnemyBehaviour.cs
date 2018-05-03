@@ -21,8 +21,6 @@ public class SpawnEnemyBehaviour : MonoBehaviour
     public List<GameObject> enemySpawnLocations = new List<GameObject>();
     public float spawnWait;
     public float waveWait;
-    public int minTotalEnemyCount = 40;
-    public int maxTotalEnemyCount = 50;
 
     private float startWait = 1.5f;
     private int enemyCount;

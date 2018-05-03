@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class BaseLifeBehaviour : MonoBehaviour
 {
     public int health;
-	public Slider healthBarSlider;
+    public Slider healthBarSlider;
 
     private int minHealth = 0;
-    private int maxHealth = 100;
+    private int maxHealth = 350;
 
     void Start()
     {
@@ -18,23 +18,16 @@ public class BaseLifeBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            health -= 25;
-        }
         if (health <= minHealth)
         {
             Die();
         }
-		healthBarSlider.value = health;
+        healthBarSlider.value = health;
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    public void TakeDamage(int damageTaken)
     {
-        if (other.gameObject.tag == "regEnemyBullet")
-        {
-            health -= 10;
-        }
+        health -= damageTaken;
     }
 
     void Die()

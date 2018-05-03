@@ -25,6 +25,7 @@ public class EnemyMoveBehaviour : MonoBehaviour
         scrapLevel = maxScrap;
         resourceManager = FindObjectOfType<ResourceManager>();
         spriteRender = gameObject.GetComponent<SpriteRenderer>();
+        StartCoroutine("MoveTo");
         if (transform.position.x > 1.5f)
         {
             transform.rotation = new Quaternion(0, 0, -0.4f, 0.9f);
@@ -50,10 +51,6 @@ public class EnemyMoveBehaviour : MonoBehaviour
             Destroy(gameObject, timeTillDestroy);
             spriteRender.color = colorGrad.Evaluate(t);
         }
-        else
-        {
-            StartCoroutine("MoveTo");
-        }
         if (distanceToTarget <= shootingDistance)
         {
             GetComponentInChildren<EnemyBulletBehavior>().enabled = true;
@@ -73,7 +70,23 @@ public class EnemyMoveBehaviour : MonoBehaviour
     {
         if (other.gameObject.tag == "regFriendlyBullet")
         {
-            scrapLevel -= 25;
+            int clipPick = Random.Range(0, clips.Length);
+            GetComponent<AudioSource>().clip = clips[clipPick];
+            GetComponent<AudioSource>().Play();
+            scrapLevel -= 60;
+            grainLevel -= 60;
+        }
+        else if(other.gameObject.tag == "Shotgun Bullet"){
+            scrapLevel -= 75;
+            grainLevel -= 85;
+        }
+        else if(other.gameObject.tag == "CannonBullet"){
+            scrapLevel -= 85;
+            grainLevel -= 75;
+        }
+        else if(other.gameObject.tag == "SniperBullet"){
+            scrapLevel -= 150;
+            grainLevel -= 170;
         }
     }
 

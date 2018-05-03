@@ -5,16 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : BaseSingletonBehaviour<GameManager>
 {
+    public float maxTime = 182;
+    
     private float timeRemaining;
-    private float maxTime = 182;
     private int nightTimeCount;
 
     void Start()
-    {
-        print("I Reset");
-        
+    {     
         nightTimeCount = 0;
-        //timeRemaining = maxTime;
         if (TimeRemaining < maxTime)
         {
             timeRemaining = maxTime;
@@ -40,13 +38,12 @@ public class GameManager : BaseSingletonBehaviour<GameManager>
         else if (timeRemaining <= 0 && SceneManager.GetActiveScene().name == "02_Level_NightTime")
         {
             nightTimeCount++;
-            if (nightTimeCount >= 14)
+            if (nightTimeCount >= 3)
             {
                 WinGame();
             }
             timeRemaining = maxTime;
             SceneManager.LoadScene("02_Level_DayTime");
-
         }
     }
 

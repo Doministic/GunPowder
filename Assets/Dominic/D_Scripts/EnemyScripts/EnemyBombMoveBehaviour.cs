@@ -41,6 +41,22 @@ public class EnemyBombMoveBehaviour : MonoBehaviour
             other.gameObject.SendMessage("TakeDamage", 17);
             Die();
         }
+        if (other.gameObject.tag == "regFriendlyBullet")
+        {
+            int clipPick = Random.Range(0, clips.Length);
+            GetComponent<AudioSource>().clip = clips[clipPick];
+            GetComponent<AudioSource>().Play();
+            scrapLevel -= 60;
+        }
+        else if(other.gameObject.tag == "Shotgun Bullet"){
+            scrapLevel -= 75;
+        }
+        else if(other.gameObject.tag == "CannonBullet"){
+            scrapLevel -= 85;
+        }
+        else if(other.gameObject.tag == "SniperBullet"){
+            scrapLevel -= 150;
+        }
     }
 
     IEnumerator MoveTo()

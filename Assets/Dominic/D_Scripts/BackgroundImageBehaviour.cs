@@ -22,7 +22,7 @@ public class BackgroundImageBehaviour : MonoBehaviour {
         
         transform.localScale = scale;
 
-		spriteRenderer.sortingOrder = 0;
+		spriteRenderer.sortingOrder = -20;
 	}
 
 }
